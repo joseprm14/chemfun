@@ -1,0 +1,66 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+:root { color-scheme: light dark; }
+html, body, #__next { height: 100%; }
+body { @apply bg-slate-50 text-slate-900; }
+.dark body { @apply bg-slate-900 text-slate-50; }
+
+
+@layer components {
+  .card { @apply rounded-2xl bg-white dark:bg-slate-800 shadow-soft border border-slate-100 dark:border-slate-700; }
+  .btn { @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2 font-medium transition; }
+  .btn-primary { @apply bg-indigo-600 text-white hover:bg-indigo-700 active:bg-indigo-800; }
+  .btn-ghost { @apply bg-transparent hover:bg-slate-100 dark:hover:bg-slate-700/50; }
+  .pill { @apply px-2 py-1 rounded-full text-xs font-semibold; }
+  .input {
+    @apply w-full rounded-lg border
+           border-slate-300 dark:border-slate-600
+           bg-white dark:bg-slate-800
+           text-slate-900 dark:text-slate-100
+           placeholder:text-slate-400 dark:placeholder:text-slate-500
+           px-3 py-2 outline-none ring-0
+           focus:border-indigo-500 dark:focus:border-indigo-400;
+  }
+  .label { @apply text-sm font-medium text-slate-700 dark:text-slate-300; }
+  .muted { @apply text-sm text-slate-600 dark:text-slate-400; }
+
+  /* Links */
+  .link {
+    @apply underline underline-offset-2
+           text-indigo-600 dark:text-indigo-400
+           hover:text-indigo-700 dark:hover:text-indigo-300;
+  }
+
+  /* Nav links */
+  .nav-link {
+    @apply px-3 py-2 rounded-lg transition
+           text-slate-700 dark:text-slate-200
+           hover:bg-slate-100 dark:hover:bg-slate-700/50;
+  }
+  .nav-link[aria-current="page"] {
+    @apply text-indigo-600 dark:text-indigo-400;
+  }
+
+  /* Tablas */
+  .table { @apply w-full text-sm; }
+  .table thead th {
+    @apply text-left font-semibold px-2 py-2
+           border-b border-slate-200 dark:border-slate-700
+           text-slate-700 dark:text-slate-300;
+  }
+  .table tbody td {
+    @apply px-2 py-2
+           border-b border-slate-100 dark:border-slate-800
+           text-slate-800 dark:text-slate-200;
+  }
+  .table tbody tr:hover {
+    @apply bg-slate-50 dark:bg-slate-800/60;
+  }
+}
+
+
+/* Cuando el juego está pausado, difuminar el contenedor */
+.paused-blur { @apply pointer-events-none blur-sm; }
