@@ -15,9 +15,9 @@ const passwordComplexity = Joi.string()
 
 const registerSchema = Joi.object({
   username: Joi.string().min(3).max(30).required(),
-  password: Joi.string().min(6).required(),
-  locale:   Joi.string().valid('es', 'en', 'fr', 'de').default('es'),
-  theme:    Joi.string().valid('light', 'dark', 'system').default('system')
+  password: passwordComplexity.required(),
+  locale:   Joi.string().valid('es', 'en').default('es'),
+  theme:    Joi.string().valid('light', 'dark').default('light')
 });
 
 const loginSchema = Joi.object({
@@ -33,7 +33,7 @@ const gameSessionSchema = Joi.object({
 });
 
 const preferencesSchema = Joi.object({
-  locale: Joi.string().valid('es', 'en', 'fr', 'de'),
+  locale: Joi.string().valid('es', 'en'),
   theme:  Joi.string().valid('light', 'dark', 'system')
 }).min(1); // al menos un campo
 
