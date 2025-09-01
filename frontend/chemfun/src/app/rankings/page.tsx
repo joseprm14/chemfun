@@ -3,14 +3,12 @@ import { useEffect, useState } from "react";
 import { getRankings } from "@/src/lib/api";
 import BackButton from "@/src/components/BackButton";
 import { useI18n } from "@/src/lib/i18n";
-
-type Mode = "click" | "drag";
-type Diff = "facil" | "medio" | "dificil";
+import { Difficulty, GameMode } from "../../lib/types";
 
 export default function RankingsPage() {
   const { t } = useI18n();
-  const [mode, setMode] = useState<Mode>("click");
-  const [difficulty, setDifficulty] = useState<Diff>("facil");
+  const [mode, setMode] = useState<GameMode>("click");
+  const [difficulty, setDifficulty] = useState<Difficulty>("fácil");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [data, setData] = useState<{ byScore: any[]; byTime: any[] }>({ byScore: [], byTime: [] });
@@ -49,7 +47,7 @@ export default function RankingsPage() {
               className="border border-slate-300 dark:border-slate-600 rounded px-3 py-2
                          bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200
                          focus:outline-none focus:ring-2 focus:ring-indigo-500/50 dark:focus:ring-indigo-400/50"
-              value={mode} onChange={e=>setMode(e.target.value as Mode)}
+              value={mode} onChange={e=>setMode(e.target.value as GameMode)}
             >
               <option value="click">{t("click")}</option>
               <option value="drag">{t("drag")}</option>
@@ -58,11 +56,11 @@ export default function RankingsPage() {
               className="border border-slate-300 dark:border-slate-600 rounded px-3 py-2
                          bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200
                          focus:outline-none focus:ring-2 focus:ring-indigo-500/50 dark:focus:ring-indigo-400/50"
-              value={difficulty} onChange={e=>setDifficulty(e.target.value as Diff)}
+              value={difficulty} onChange={e=>setDifficulty(e.target.value as Difficulty)}
             >
-              <option value="facil">{t("easy")}</option>
+              <option value="fácil">{t("easy")}</option>
               <option value="medio">{t("medium")}</option>
-              <option value="dificil">{t("hard")}</option>
+              <option value="difícil">{t("hard")}</option>
             </select>
             <button
               onClick={fetchData}

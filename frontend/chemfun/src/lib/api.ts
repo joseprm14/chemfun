@@ -65,16 +65,6 @@ async function tryRefresh(): Promise<boolean> {
   return false;
 }
 
-// ==== Tipos ====
-type SaveSessionInput = {
-  difficulty: "facil" | "medio" | "dificil"; // UI en ES sin tilde
-  mode: "click" | "drag";
-  score: number;
-  timeTaken: number;
-};
-
-type Credentials = { username: string; password: string };
-
 // ==== Endpoints ====
 export async function registerUser(payload: { username: string; password: string; locale?: 'es'|'en'; theme?: 'light'|'dark' }) {
   const res = await fetch(`${BASE_URL}/users/register`, {
@@ -138,7 +128,7 @@ export async function updatePreferences(payload: Partial<{ locale: 'es'|'en'; th
 
 // Juego
 export async function saveGameSession(payload: { mode: "click" | "drag"; difficulty: "fácil" | "medio" | "difícil"; score: number; timeTaken: number; }) {
-  const res = await fetchWithAuth(`${BASE_URL}/game/session`, {
+  const res = await fetchWithAuth(`${BASE_URL}/game/save`, {
     method: 'POST',
     body: JSON.stringify(payload),
   });
@@ -146,9 +136,8 @@ export async function saveGameSession(payload: { mode: "click" | "drag"; difficu
   return res.json();
 }
 
-export async function getRankings(params: { mode: "click" | "drag"; difficulty: "facil" | "medio" | "dificil" }) {
-  const map: Record<string,string> = { facil: "fácil", medio: "medio", dificil: "difícil" };
-  const res = await fetch(`${BASE_URL}/rankings/${params.mode}/${map[params.difficulty]}`, {
+export async function getRankings(params: { mode: "click" | "drag"; difficulty: "fácil" | "medio" | "difícil" }) {
+  const res = await fetch(`${BASE_URL}/rankings/${params.mode}/${params.difficulty}`, {
     method: 'GET',
     headers: { 'Content-Type': 'application/json' },
     credentials: 'include', // opcional, no hace daño

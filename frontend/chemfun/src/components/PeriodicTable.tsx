@@ -121,6 +121,7 @@ export function PeriodicTable({
         {elements.filter(e => e.category === "lanthanoid" && e.name !== "Lantano").map(e => (
           <motion.div
             key={e.atomicNumber}
+            whileHover={{ scale: 1.05 }}
             className={classNames(
               "relative h-12 w-14 rounded-md border text-center flex flex-col items-center justify-center select-none transition-transform",
               cellClass(e.atomicNumber),
@@ -142,6 +143,7 @@ export function PeriodicTable({
         {elements.filter(e => (e.category === "actinoid" && e.name !== "Actinio")).map(e => (
           <motion.div
             key={e.atomicNumber}
+            whileHover={{ scale: 1.05 }}
             className={classNames(
               "relative h-12 w-14 rounded-md border text-center flex flex-col items-center justify-center select-none transition-transform",
               cellClass(e.atomicNumber),

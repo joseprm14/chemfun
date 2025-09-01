@@ -27,14 +27,14 @@ export function ModeSelectors({ mode, setMode, difficulty, setDifficulty }: { mo
         <div>
           <label className="block text-sm font-medium mb-1">{t("difficulty")}</label>
           <div className="grid grid-cols-3 gap-2">
-            {(["facil", "medio", "dificil"] as Difficulty[]).map((d) => (
+            {(["fácil", "medio", "difícil"] as Difficulty[]).map((d) => (
               <button
                 key={d}
                 onClick={() => setDifficulty?.(d)}
                 disabled={!setDifficulty}
                 className={`btn ${difficulty === d ? "btn-primary" : "btn-ghost"} ${!setDifficulty ? "opacity-60 cursor-not-allowed" : ""}`}
               >
-                {d==="facil"? t("easy") : d==="medio"? t("medium") : t("hard")}
+                {d==="fácil"? t("easy") : d==="medio"? t("medium") : t("hard")}
               </button>
             ))}
           </div>

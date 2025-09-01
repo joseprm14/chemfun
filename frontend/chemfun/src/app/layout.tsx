@@ -17,7 +17,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           <I18nProvider>
             <div className="min-h-screen">
               <Navbar />
-              {/* TODO */}
               <main>{children}</main>
             </div>
           </I18nProvider>

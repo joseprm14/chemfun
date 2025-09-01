@@ -11,11 +11,18 @@ const GameSession = require("../src/models/GameSession");
 const saltRounds = parseInt(process.env.BCRYPT_SALT_ROUNDS || '10', 10);
 
 const USERS = [
-  // Contraseñas fuertes que cumplen: minúscula, mayúscula, número y carácter especial, ≥ 8 chars
   { username: 'ana',   password: 'Ana!2024',   locale: 'es', theme: 'light' },
   { username: 'bruce', password: 'Bruc3!2024', locale: 'en', theme: 'dark'   },
   { username: 'clara', password: 'Clara#99',   locale: 'es', theme: 'light'  },
-  { username: 'david', password: 'Dav1d@2025', locale: 'en', theme: 'dark' }
+  { username: 'david', password: 'Dav1d@2025', locale: 'en', theme: 'dark' },
+  { username: 'paco', password: 'Chemfun.1', locale: 'es', theme: 'dark' },
+  { username: 'javier', password: 'Chemfun.1', locale: 'es', theme: 'dark' },
+  { username: 'maria', password: 'Chemfun.1', locale: 'es', theme: 'dark' },
+  { username: 'patricia', password: 'Chemfun.1', locale: 'es', theme: 'dark' },
+  { username: 'aitor', password: 'Chemfun.1', locale: 'es', theme: 'dark' },
+  { username: 'ruben', password: 'Chemfun.1', locale: 'es', theme: 'dark' },
+  { username: 'sara', password: 'Chemfun.1', locale: 'es', theme: 'dark' },
+  { username: 'juan', password: 'Chemfun.1', locale: 'es', theme: 'dark' }
 ];
 
 // Algunas partidas de ejemplo para rankings
@@ -23,11 +30,21 @@ const SAMPLE_SESSIONS = [
   // mode: click | drag ; difficulty: fácil | medio | difícil
   { u: 'ana',   mode: 'click', difficulty: 'fácil',  score: 1200, timeTaken: 54 },
   { u: 'ana',   mode: 'click', difficulty: 'medio',  score: 980,  timeTaken: 68 },
+  { u: 'ana',   mode: 'click', difficulty: 'difícil',  score: 870,  timeTaken: 122 },
+  { u: 'ana',   mode: 'drag', difficulty: 'fácil',  score: 1200, timeTaken: 44 },
+  { u: 'ana',   mode: 'drag', difficulty: 'medio',  score: 980,  timeTaken: 78 },
+  { u: 'ana',   mode: 'drag', difficulty: 'difícil',  score: 180,  timeTaken: 68 },
+  { u: 'david',   mode: 'click', difficulty: 'fácil',  score: 1100, timeTaken: 74 },
+  { u: 'david',   mode: 'click', difficulty: 'medio',  score: 1000,  timeTaken: 88 },
+  { u: 'david',   mode: 'click', difficulty: 'difícil',  score: 970,  timeTaken: 112 },
+  { u: 'david',   mode: 'drag', difficulty: 'fácil',  score: 1200, timeTaken: 144 },
+  { u: 'david',   mode: 'drag', difficulty: 'medio',  score: 980,  timeTaken: 178 },
+  { u: 'david',   mode: 'drag', difficulty: 'difícil',  score: 680,  timeTaken: 88 },
   { u: 'bruce', mode: 'click', difficulty: 'fácil',  score: 1320, timeTaken: 49 },
   { u: 'bruce', mode: 'drag',  difficulty: 'difícil',score: 760,  timeTaken: 120 },
   { u: 'clara', mode: 'drag',  difficulty: 'medio',  score: 1010, timeTaken: 75 },
-  { u: 'david', mode: 'click', difficulty: 'difícil',score: 880,  timeTaken: 102 },
-  { u: 'david', mode: 'drag',  difficulty: 'fácil',  score: 1100, timeTaken: 60 }
+  { u: 'juan', mode: 'click', difficulty: 'difícil',score: 880,  timeTaken: 102 },
+  { u: 'juan', mode: 'drag',  difficulty: 'fácil',  score: 1100, timeTaken: 60 }
 ];
 
 async function connect() {

@@ -10,23 +10,22 @@ import { Difficulty, GameMode, TableMask, ElementData } from "../lib/types";
 import { buildTableMaskForDifficulty } from "../lib/difficulty";
 import { elements } from "../data/elements";
 import { pickRandom } from "../lib/util";
-import { saveSession, isLoggedIn } from "../lib/api";
+import { saveGameSession, isLoggedIn } from "../lib/api";
 import { useI18n } from "../lib/i18n";
 import SidebarRanking from "@/src/components/SidebarRanking";
 
-// TODO paginas stats
 
 export default function MainPage() {
   const { t } = useI18n();
   const [mode, setMode] = useState<GameMode>("click");
-  const [difficulty, setDifficulty] = useState<Difficulty>("facil");
+  const [difficulty, setDifficulty] = useState<Difficulty>("fácil");
   const [started, setStarted] = useState(false);
   const [paused, setPaused] = useState(false);
   const [score, setScore] = useState(0);
   const [time, setTime] = useState(0);
   const [target, setTarget] = useState<ElementData | null>(null);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
-  const [mask, setMask] = useState<TableMask>(() => buildTableMaskForDifficulty("facil", "click"));
+  const [mask, setMask] = useState<TableMask>(() => buildTableMaskForDifficulty("fácil", "click"));
   const [feedback, setFeedback] = useState<"ok"|"fail"|null>(null);
   const [guessed, setGuessed] = useState<Set<number>>(new Set());
   const [mistakes, setMistakes] = useState(0);
@@ -95,7 +94,7 @@ export default function MainPage() {
     setShowMessage(true);
     try {
       if (isLoggedIn()) {
-        await saveSession({
+        await saveGameSession({
           difficulty,
           mode,
           score,

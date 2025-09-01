@@ -1,6 +1,6 @@
 // Definición de los distintos tipos personalizados que se utilizaran
 export type GameMode = "click" | "drag";
-export type Difficulty = "facil" | "medio" | "dificil";
+export type Difficulty = "fácil" | "medio" | "difícil";
 
 export type ElementCategory =
   | "alkali"

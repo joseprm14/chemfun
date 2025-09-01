@@ -2,15 +2,14 @@
 import { useEffect, useState } from "react";
 import { getRankings } from "@/src/lib/api";
 import { useI18n } from "../lib/i18n";
+import { Difficulty, GameMode } from "../lib/types";
 
-type Mode = "click" | "drag";
-type Diff = "facil" | "medio" | "dificil";
 
 export default function SidebarRanking({
   mode,
   difficulty,
   limit = 5
-}: { mode: Mode; difficulty: Diff; limit?: number }) {
+}: { mode: GameMode; difficulty: Difficulty; limit?: number }) {
   const { t } = useI18n();
   const [rows, setRows] = useState<Array<{username:string; score:number; timeTaken:number}>>([]);
   const [loading, setLoading] = useState(true);
