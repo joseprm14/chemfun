@@ -14,6 +14,7 @@ export default defineConfig({
     ],
     webServer: {
         command: 'npm run dev',
+        env: { NEXT_PUBLIC_E2E_SHORT_MODE: '1' },
         port: 3000,
         reuseExistingServer: !process.env.CI,
     },

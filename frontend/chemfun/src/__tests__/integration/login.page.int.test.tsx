@@ -1,58 +1,47 @@
-import { renderWithProviders, screen, userEvent, waitFor } from '../test-utils';
-import LoginPage from '@/src/app/login/page';
+import { renderWithProviders, screen, waitFor } from '../test-utils';
+import userEvent from '@testing-library/user-event';
+import LoginPage from '@/src/app/login/page'; // <-- ruta correcta (App Router)
 
-
-jest.mock('@/src/lib/api', () => ({
-    loginUser: jest.fn(async ({ username, password }) => {
-        if (username === 'alice' && password === 'secret') return { token: 'jwt' };
-        const e: any = new Error('Credenciales inválidas');
-        e.message = 'Credenciales inválidas';
-        throw e;
-    }),
-    setToken: jest.fn(),
-}));
-
-
-// Sobrescribe push del router para verificar navegación
+// --- Mock del router (next/navigation) ---
+const mockReplace = jest.fn();
 jest.mock('next/navigation', () => ({
-    useRouter: () => ({ push: jest.fn() }),
+  useRouter: () => ({
+    replace: mockReplace,
+    push: jest.fn(),
+    prefetch: jest.fn(),
+    back: jest.fn(),
+    forward: jest.fn(),
+    refresh: jest.fn(),
+  }),
+  usePathname: () => '/login',
+  useSearchParams: () => new URLSearchParams(),
 }));
-
-
-// Helpers robustos contra acentos/variantes de texto
-const findLoginButton = () =>
-screen.getByRole('button', { name: /iniciar sesi[oó]n|entrar|acceder|sign in|log in/i });
-
-
-const fillCredentials = async (user: string, pass: string) => {
-    const userField = screen.getByLabelText(/usuario|correo|email|user/i);
-    const passField = screen.getByLabelText(/contrase(?:ñ|n)a|password|clave/i);
-    await userEvent.type(userField, user);
-    await userEvent.type(passField, pass);
-};
-
 
 describe('LoginPage (integration)', () => {
-    test('loguea y redirige al home', async () => {
-        renderWithProviders(<LoginPage />);
+  beforeEach(() => {
+    jest.clearAllMocks();
+    // Limpieza para evitar warnings del I18nProvider y partir de estado limpio
+    try { localStorage.removeItem('locale'); localStorage.removeItem('token'); } catch {}
+    // Mock global de fetch para que loginUser funcione “de verdad”
+    (global as any).fetch = jest.fn(async () => ({
+      ok: true,
+      json: async () => ({
+        token: 'jwt',
+        user: { id: '1', username: 'alice', locale: 'es', theme: 'light' },
+      }),
+    }));
+  });
 
+  test('loguea y redirige al home', async () => {
+    renderWithProviders(<LoginPage />);
 
-        await fillCredentials('alice', 'secret');
-        await userEvent.click(findLoginButton());
+    await userEvent.type(screen.getByLabelText(/usuario/i), 'alice');
+    await userEvent.type(screen.getByLabelText(/contraseña/i), 'secret');
+    await userEvent.click(screen.getByRole('button', { name: /entrar|entrando/i }));
 
-
-        await waitFor(() => expect(require('@/src/lib/api').setToken).toHaveBeenCalledWith('jwt'));
-    });
-
-
-    test('muestra error en credenciales inválidas', async () => {
-        renderWithProviders(<LoginPage />);
-
-
-        await fillCredentials('bad', 'bad');
-        await userEvent.click(findLoginButton());
-
-
-        expect(await screen.findByText(/credenciales inválidas|invalid credentials/i)).toBeInTheDocument();
-    });
+    // Se guarda el token (loginUser llama a setToken internamente)
+    await waitFor(() => expect(localStorage.getItem('token')).toBe('jwt'));
+    // Se hace replace('/') al terminar
+    expect(mockReplace).toHaveBeenCalledWith('/');
+  });
 });

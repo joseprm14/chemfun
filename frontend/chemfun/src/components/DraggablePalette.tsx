@@ -22,6 +22,8 @@ export function DraggablePalette({ elements, disabled, mask, guessed }: { elemen
           <div
             key={el.atomicNumber}
             draggable={!disabled}
+            data-testid={`palette-${el.symbol}`}
+            data-symbol={el.symbol}
             onDragStart={(e)=>startDrag(e, el.atomicNumber)}
             className={classNames(
             // Mismo tamaño que las casillas de la tabla: h-12 w-14

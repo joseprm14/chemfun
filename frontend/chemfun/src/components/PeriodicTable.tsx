@@ -88,6 +88,8 @@ export function PeriodicTable({
             return (
               <motion.div
                 key={`${period}-${group}`}
+                data-testid={atomicNumber ? `cell-${byAtomic.get(atomicNumber)?.symbol}` : null}
+                data-symbol={atomicNumber ? byAtomic.get(atomicNumber)?.symbol : null}
                 whileHover={{ scale: isEmpty ? 1 : 1.05 }}
                 className={classNames(
                   "relative h-12 w-14 rounded-md border text-center flex flex-col items-center justify-center select-none transition-transform",
@@ -121,6 +123,8 @@ export function PeriodicTable({
         {elements.filter(e => e.category === "lanthanoid" && e.name !== "Lantano").map(e => (
           <motion.div
             key={e.atomicNumber}
+            data-testid={`cell-${e.symbol}`}
+            data-symbol={e.symbol}
             whileHover={{ scale: 1.05 }}
             className={classNames(
               "relative h-12 w-14 rounded-md border text-center flex flex-col items-center justify-center select-none transition-transform",
@@ -143,6 +147,9 @@ export function PeriodicTable({
         {elements.filter(e => (e.category === "actinoid" && e.name !== "Actinio")).map(e => (
           <motion.div
             key={e.atomicNumber}
+            role="gridcell"
+            data-testid={`cell-${e.symbol}`}
+            data-symbol={e.symbol}
             whileHover={{ scale: 1.05 }}
             className={classNames(
               "relative h-12 w-14 rounded-md border text-center flex flex-col items-center justify-center select-none transition-transform",

@@ -3,7 +3,7 @@ import { buildTableMaskForDifficulty } from '@/src/lib/difficulty';
 
 describe('buildTableMaskForDifficulty', () => {
     test('fácil: muestra número atómico y símbolo en modo click', () => {
-        const mask = buildTableMaskForDifficulty('facil', 'click');
+        const mask = buildTableMaskForDifficulty('fácil', 'click');
         expect(mask).toEqual({ showName: false, showSymbol: true, showAtomicNumber: true });
     });
 
@@ -15,7 +15,7 @@ describe('buildTableMaskForDifficulty', () => {
 
 
     test('difícil: oculta todo', () => {
-        const mask = buildTableMaskForDifficulty('dificil', 'click');
+        const mask = buildTableMaskForDifficulty('difícil', 'click');
         expect(mask).toEqual({ showName: false, showSymbol: false, showAtomicNumber: false });
     });
 });

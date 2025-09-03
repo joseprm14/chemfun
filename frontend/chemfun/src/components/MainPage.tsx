@@ -221,7 +221,10 @@ export default function MainPage() {
 
         {mode === "click" && (
           <div className="mt-4">
-            <div className="text-2xl font-bold">
+            <div className="text-2xl font-bold" 
+              data-testid="target"
+              data-target-symbol={target?.symbol ?? ''}
+            >
               {started ? (t("element")==="nameEN" ? target?.nameEN : target?.name) : "—"}
             </div>
             <button
@@ -293,6 +296,9 @@ export default function MainPage() {
           </div>
         </div>
       </div>)}
+      {showMessage && (
+        <div role="status" data-testid="game-finished">Partida completada</div>
+      )}
     </div>
   );
 }

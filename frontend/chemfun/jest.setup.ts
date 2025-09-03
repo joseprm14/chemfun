@@ -9,3 +9,8 @@ import { TextEncoder, TextDecoder } from 'util';
 
 // Mock por defecto de next/navigation (se puede sobreescribir por test)
 jest.mock('next/navigation', () => require('./__mocks__/nextNavigationMock'));
+
+beforeEach(() => {
+  // Evita que I18nProvider haga setState por efecto
+  try { localStorage.removeItem('locale'); } catch {}
+});

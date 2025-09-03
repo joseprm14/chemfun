@@ -1,62 +1,56 @@
-const auth = require('../../src/middleware/authMiddleware');
-
-
-jest.mock('jsonwebtoken', () => ({
-    verify: jest.fn((token, secret) => {
-        if (token === 'valid') return { id: 'user-123' };
-        throw new Error('bad token');
-    })
+jest.mock('../../src/utils/tokens', () => ({
+  verifyAccessToken: jest.fn((tok) => {
+    if (tok === 'valid') return { id: 'user-123' };
+    const err = new Error('bad'); err.name = tok === 'expired' ? 'TokenExpiredError' : 'JsonWebTokenError'; throw err;
+  }),
 }));
 
+const { verifyAccessToken } = require('../../src/utils/tokens');
+const auth = require('../../src/middleware/authMiddleware');
 
-describe('authMiddleware (unit)', () => {
-    test('sin Authorization -> 401', () => {
-        const req = { headers: {} };
-        const res = { status: jest.fn().mockReturnValueThis?.() || jest.fn(function(){return this;}), json: jest.fn() };
-        const next = jest.fn();
+const mockRes = () => {
+  const res = {};
+  res.status = jest.fn().mockReturnValue(res);
+  res.json = jest.fn().mockReturnValue(res);
+  return res;
+};
 
+describe('authMiddleware', () => {
+  test('sin Authorization -> 401', () => {
+    const req = { headers: {} };
+    const res = mockRes();
+    const next = jest.fn();
+    auth(req, res, next);
+    expect(res.status).toHaveBeenCalledWith(401);
+    expect(res.json).toHaveBeenCalledWith({ error: 'Token requerido' });
+    expect(next).not.toHaveBeenCalled();
+  });
 
-        // pequeño helper para status encadenado
-        res.status.mockReturnValue(res);
+  test('token válido -> next()', () => {
+    const req = { headers: { authorization: 'Bearer valid' } };
+    const res = mockRes();
+    const next = jest.fn();
+    auth(req, res, next);
+    expect(verifyAccessToken).toHaveBeenCalledWith('valid');
+    expect(req.user).toEqual({ id: 'user-123' });
+    expect(next).toHaveBeenCalled();
+  });
 
+  test('token expirado -> 401 "Token expirado"', () => {
+    const req = { headers: { authorization: 'Bearer expired' } };
+    const res = mockRes();
+    const next = jest.fn();
+    auth(req, res, next);
+    expect(res.status).toHaveBeenCalledWith(401);
+    expect(res.json).toHaveBeenCalledWith({ error: 'Token expirado' });
+  });
 
-        auth(req, res, next);
-
-
-        expect(res.status).toHaveBeenCalledWith(401);
-        expect(res.json).toHaveBeenCalledWith({ error: 'Token requerido' });
-        expect(next).not.toHaveBeenCalled();
-    });
-
-
-    test('token válido -> next()', () => {
-        process.env.JWT_SECRET = 'testing-secret';
-        const req = { headers: { authorization: 'Bearer valid' } };
-        const res = { status: jest.fn(), json: jest.fn() };
-        const next = jest.fn();
-
-
-        auth(req, res, next);
-
-
-        expect(req.user).toEqual({ id: 'user-123' });
-        expect(next).toHaveBeenCalled();
-    });
-
-
-    test('token inválido -> 403', () => {
-        process.env.JWT_SECRET = 'testing-secret';
-        const req = { headers: { authorization: 'Bearer invalid' } };
-        const res = { status: jest.fn(), json: jest.fn() };
-        res.status.mockReturnValue(res);
-        const next = jest.fn();
-
-
-        auth(req, res, next);
-
-
-        expect(res.status).toHaveBeenCalledWith(403);
-        expect(res.json).toHaveBeenCalledWith({ error: 'Token inválido' });
-        expect(next).not.toHaveBeenCalled();
-    });
+  test('token inválido -> 401 "Token inválido"', () => {
+    const req = { headers: { authorization: 'Bearer nope' } };
+    const res = mockRes();
+    const next = jest.fn();
+    auth(req, res, next);
+    expect(res.status).toHaveBeenCalledWith(401);
+    expect(res.json).toHaveBeenCalledWith({ error: 'Token inválido' });
+  });
 });

@@ -19,11 +19,11 @@ const refreshCookieOptions = {
 
 exports.registerUser = async (req, res) => {
     // Registra un nuevo usuario en la base de datos
-    const { username, password, locale, theme } = req.body;
+    const { username, password } = req.body;
     try {
         // Se encripta la contraseña para almacenarla de forma segura
         const hash = await bcrypt.hash(password, saltRounds);
-        const user = await User.create({ username, password: hash, locale, theme });
+        const user = await User.create({ username, password: hash });
         res.status(201).json({ message: 'Usuario creado correctamente' });
     } catch (err) {
         res.status(400).json({ error: 'Nombre de usuario ya existe' });
