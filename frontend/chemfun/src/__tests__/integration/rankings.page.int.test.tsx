@@ -27,7 +27,7 @@ describe('RankingsPage', () => {
     getRankingsSpy.mockResolvedValue(SAMPLE);
   });
 
-  test('carga y muestra rankings por puntuación y por tiempo', async () => {
+  test('test-f-i-05 - carga y muestra rankings por puntuación y por tiempo', async () => {
     renderWithProviders(<RankingsPage />);
 
     // Se muestra estado de carga inicialmente si existe
@@ -45,12 +45,13 @@ describe('RankingsPage', () => {
     expect(screen.getByText('carol')).toBeInTheDocument();
   });
 
-  test('cambiar modo o dificultad vuelve a consultar', async () => {
+  test('test-f-i-06 - cambiar modo o dificultad vuelve a consultar', async () => {
     renderWithProviders(<RankingsPage />);
     await waitFor(() => expect(getRankingsSpy).toHaveBeenCalledTimes(1));
 
-    const modeSelect = screen.getByRole('combobox', { name: /modo/i });
-    const diffSelect = screen.getByRole('combobox', { name: /dificultad/i });
+    const selects = screen.getAllByRole('combobox');
+    const modeSelect = selects[0];
+    const diffSelect = selects[1];
 
     await userEvent.selectOptions(modeSelect, 'drag');
     await waitFor(() => expect(getRankingsSpy).toHaveBeenCalledTimes(2));

@@ -33,7 +33,7 @@ describe('RegisterPage', () => {
     mockReplace.mockReset();
   });
 
-  test('muestra formulario de registro', () => {
+  test('test-f-i-07 - muestra formulario de registro', () => {
     renderWithProviders(<RegisterPage />);
     expect(screen.getByRole('heading', { name: /registrarse|register/i })).toBeInTheDocument();
     expect(screen.getByLabelText(/usuario/i)).toBeInTheDocument();
@@ -41,7 +41,7 @@ describe('RegisterPage', () => {
     expect(screen.getByRole('button', { name: /registrarse|register|creando/i })).toBeInTheDocument();
   });
 
-  test('valida y registra al usuario; luego hace login y redirige', async () => {
+  test('test-f-i-08 - valida y registra al usuario; luego hace login y redirige', async () => {
     registerSpy.mockResolvedValue({ ok: true });
     loginSpy.mockResolvedValue(true);
 

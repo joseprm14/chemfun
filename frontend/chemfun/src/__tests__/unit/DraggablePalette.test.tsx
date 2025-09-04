@@ -17,7 +17,7 @@ describe('DraggablePalette', () => {
     expect(screen.getByText('He')).toBeInTheDocument();
   });
 
-  test('onDragStart adjunta atomicNumber al dataTransfer', () => {
+  test('test-f-u-14 - onDragStart adjunta atomicNumber al dataTransfer', () => {
     renderWithProviders(<DraggablePalette elements={elements} disabled={false} mask={mask} guessed={new Set()} />);
     const el = screen.getByText('He').closest('div') as HTMLDivElement;
 
