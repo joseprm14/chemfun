@@ -18,7 +18,7 @@ describe('Rankings API (integration)', () => {
   afterAll(async () => { await stopInMemoryMongo(); });
   afterEach(async () => { await clearCollections(); });
 
-  test('ranking devuelve byScore y byTime ordenados', async () => {
+  test('test-b-i-04 - ranking devuelve byScore y byTime ordenados', async () => {
     const u1 = await User.create({ username: 'u1', password: 'x' });
     const u2 = await User.create({ username: 'u2', password: 'y' });
 

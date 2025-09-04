@@ -16,7 +16,7 @@ const mockRes = () => {
 };
 
 describe('authMiddleware', () => {
-  test('sin Authorization -> 401', () => {
+  test('test-b-u-01 - sin Authorization -> 401', () => {
     const req = { headers: {} };
     const res = mockRes();
     const next = jest.fn();
@@ -26,7 +26,7 @@ describe('authMiddleware', () => {
     expect(next).not.toHaveBeenCalled();
   });
 
-  test('token válido -> next()', () => {
+  test('test-b-u-02 - token válido -> next()', () => {
     const req = { headers: { authorization: 'Bearer valid' } };
     const res = mockRes();
     const next = jest.fn();
@@ -36,7 +36,7 @@ describe('authMiddleware', () => {
     expect(next).toHaveBeenCalled();
   });
 
-  test('token expirado -> 401 "Token expirado"', () => {
+  test('test-b-u-03 - token expirado -> 401 "Token expirado"', () => {
     const req = { headers: { authorization: 'Bearer expired' } };
     const res = mockRes();
     const next = jest.fn();
@@ -45,7 +45,7 @@ describe('authMiddleware', () => {
     expect(res.json).toHaveBeenCalledWith({ error: 'Token expirado' });
   });
 
-  test('token inválido -> 401 "Token inválido"', () => {
+  test('test-b-u-04 - token inválido -> 401 "Token inválido"', () => {
     const req = { headers: { authorization: 'Bearer nope' } };
     const res = mockRes();
     const next = jest.fn();

@@ -12,7 +12,7 @@ const mockRes = () => {
 describe('rankingController (unit)', () => {
   beforeEach(() => jest.clearAllMocks());
 
-  test('formatea ranking por puntuación y tiempo', async () => {
+  test('test-b-u-07 - formatea ranking por puntuación y tiempo', async () => {
     const req = { params: { mode: 'click', difficulty: 'fácil' } };
     const res = mockRes();
 

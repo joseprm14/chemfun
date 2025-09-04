@@ -32,7 +32,7 @@ describe('LoginPage (integration)', () => {
     }));
   });
 
-  test('loguea y redirige al home', async () => {
+  test('test-f-i-01 - loguea y redirige al home', async () => {
     renderWithProviders(<LoginPage />);
 
     await userEvent.type(screen.getByLabelText(/usuario/i), 'alice');

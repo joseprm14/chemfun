@@ -11,7 +11,7 @@ const mockRes = () => {
 describe('validationMiddleware', () => {
   const schema = Joi.object({ a: Joi.number().integer().min(0).required() });
 
-  test('pasa cuando valida OK', () => {
+  test('test-b-u-22 - pasa cuando valida OK', () => {
     const req = { body: { a: 3 } };
     const res = mockRes();
     const next = jest.fn();
@@ -20,7 +20,7 @@ describe('validationMiddleware', () => {
     expect(res.status).not.toHaveBeenCalled();
   });
 
-  test('responde 400 con lista de errores cuando invalida', () => {
+  test('test-b-u-23 - responde 400 con lista de errores cuando invalida', () => {
     const req = { body: { a: -1 } };
     const res = mockRes();
     const next = jest.fn();

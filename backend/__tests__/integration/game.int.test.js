@@ -22,7 +22,7 @@ describe('Game API (integration)', () => {
   afterAll(async () => { await stopInMemoryMongo(); });
   afterEach(async () => { await clearCollections(); });
 
-  test('guardar partida y consultar mis partidas', async () => {
+  test('test-b-i-01 - guardar partida y consultar mis partidas', async () => {
     token = await registerAndLogin('player1');
     const save = await request(app)
       .post('/api/game/save')
@@ -36,7 +36,7 @@ describe('Game API (integration)', () => {
     expect(my.body).toHaveLength(1);
   });
 
-  test('validación Joi -> 400', async () => {
+  test('test-b-i-02 - validación Joi -> 400', async () => {
     token = await registerAndLogin('player2');
     const res = await request(app)
       .post('/api/game/save')
@@ -47,7 +47,7 @@ describe('Game API (integration)', () => {
     expect(res.body).toHaveProperty('errors');
   });
 
-  test('protección auth en /game/mygames -> 401', async () => {
+  test('test-b-i-03 - protección auth en /game/mygames -> 401', async () => {
     const res = await request(app).get('/api/game/mygames');
     expect(res.statusCode).toBe(401);
     expect(res.body).toEqual({ error: 'Token requerido' });

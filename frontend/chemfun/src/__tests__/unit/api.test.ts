@@ -9,7 +9,7 @@ describe('api helpers (unit)', () => {
     }));
   });
 
-  test('token helpers', () => {
+  test('test-f-u-01 - token helpers', () => {
     expect(getToken()).toBeNull();
     setToken('abc');
     expect(getToken()).toBe('abc');
@@ -17,7 +17,7 @@ describe('api helpers (unit)', () => {
     expect(getToken()).toBeNull();
   });
 
-  test('fetch interno añade Authorization si hay token', async () => {
+  test('test-f-u-02 - fetch interno añade Authorization si hay token', async () => {
     setToken('jwt123');
     await getMe(); // <- esto usa internamente fetchWithAuth
 

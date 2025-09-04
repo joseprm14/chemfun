@@ -3,7 +3,7 @@ import { ModeSelectors } from '@/src/components/ModeSelectors';
 import userEvent from '@testing-library/user-event';
 
 describe('ModeSelectors (unit)', () => {
-  test('permite cambiar de modo y dificultad cuando no está bloqueado', async () => {
+  test('test-f-u-08 - permite cambiar de modo y dificultad cuando no está bloqueado', async () => {
     const setMode = jest.fn();
     const setDifficulty = jest.fn();
 
@@ -15,7 +15,7 @@ describe('ModeSelectors (unit)', () => {
     expect(setDifficulty).toHaveBeenCalled();
   });
 
-  test('cuando está bloqueado no dispara handlers', async () => {
+  test('test-f-u-09 - cuando está bloqueado no dispara handlers', async () => {
     const setMode = jest.fn();
     const setDifficulty = jest.fn();
 

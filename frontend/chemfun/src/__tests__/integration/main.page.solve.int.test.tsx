@@ -19,7 +19,7 @@ jest.mock('@/src/lib/util', () => ({
 }));
 
 describe('MainPage (integration solve one correct pick)', () => {
-  test('modo click: acierta Hidrógeno incrementando marcador', async () => {
+  test('test-f-i-04 - modo click: acierta Hidrógeno incrementando marcador', async () => {
     renderWithProviders(<MainPage />);
     const { getRankings } = require('@/src/lib/api');
     await waitFor(() => expect(getRankings).toHaveBeenCalled());

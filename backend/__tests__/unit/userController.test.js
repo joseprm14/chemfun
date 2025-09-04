@@ -46,7 +46,7 @@ describe('userController (unit) - loginUser', () => {
     process.env.JWT_REFRESH_SECRET = 'refresh-it';
   });
 
-  test('OK devuelve token y setea cookie de refresh', async () => {
+  test('test-b-u-10 - OK devuelve token y setea cookie de refresh', async () => {
     const mockUserDoc = {
       _id: 'u1',
       username: 'alice',
@@ -85,7 +85,7 @@ describe('userController (unit) - loginUser', () => {
     expect(mockUserDoc.save).toHaveBeenCalled();
   });
 
-  test('credenciales inválidas -> 401', async () => {
+  test('test-b-u-11 - credenciales inválidas -> 401', async () => {
     const mockUserDoc = {
       _id: 'u1',
       username: 'alice',
@@ -106,7 +106,7 @@ describe('userController (unit) - loginUser', () => {
     expect(mockUserDoc.save).not.toHaveBeenCalled();
   });
 
-  test('usuario no existe -> 401', async () => {
+  test('test-b-u-12 - usuario no existe -> 401', async () => {
     User.findOne.mockResolvedValue(null);
     const req = { body: { username: 'nadie', password: 'Aa1!aaaa' } };
     const res = mockRes();
@@ -124,7 +124,7 @@ describe('userController (unit) - registerUser', () => {
     jest.clearAllMocks();
   });
 
-  test('registerUser crea usuario y devuelve 201', async () => {
+  test('test-b-u-13 - registerUser crea usuario y devuelve 201', async () => {
     const req = { body: { username: 'alice', password: 'secret123' } };
   const res = mockRes();
 
@@ -146,7 +146,7 @@ describe('userController (unit) - registerUser', () => {
   });
 
 
-  test('registerUser maneja duplicado con 400', async () => {
+  test('test-b-u-14 - registerUser maneja duplicado con 400', async () => {
     const req = { body: { username: 'alice', password: 'x' } };
     const res = mockRes();
     User.create.mockRejectedValue(new Error('duplicate'));
@@ -166,7 +166,7 @@ describe('userController (unit) - getMe', () => {
     jest.clearAllMocks();
   });
 
-  test('devuelve datos públicos del usuario (200)', async () => {
+  test('test-b-u-15 - devuelve datos públicos del usuario (200)', async () => {
     const req = { user: { id: 'u1' } };
     const res = mockRes();
 
@@ -192,7 +192,7 @@ describe('userController (unit) - getMe', () => {
     });
   });
 
-  test('usuario no encontrado -> 404', async () => {
+  test('test-b-u-16 - usuario no encontrado -> 404', async () => {
     const req = { user: { id: 'missing' } };
     const res = mockRes();
 
@@ -213,7 +213,7 @@ describe('userController (unit) - updatePreferences', () => {
     jest.clearAllMocks();
   });
 
-  test('actualiza locale y/o theme y devuelve (200)', async () => {
+  test('test-b-u-17 - actualiza locale y/o theme y devuelve (200)', async () => {
     const req = { user: { id: 'u1' }, body: { locale: 'en', theme: 'light' } };
     const res = mockRes();
 
@@ -243,7 +243,7 @@ describe('userController (unit) - updatePreferences', () => {
     });
   });
 
-  test('si solo llega theme, no envía locale en el update', async () => {
+  test('test-b-u-18 - si solo llega theme, no envía locale en el update', async () => {
     const req = { user: { id: 'u1' }, body: { theme: 'dark' } };
     const res = mockRes();
 
@@ -273,7 +273,7 @@ describe('userController (unit) - updatePreferences', () => {
     });
   });
 
-  test('usuario no encontrado -> 404', async () => {
+  test('test-b-u-19 - usuario no encontrado -> 404', async () => {
     const req = { user: { id: 'u-missing' }, body: { locale: 'en' } };
     const res = mockRes();
 
@@ -294,7 +294,7 @@ describe('userController (unit) - logoutUser', () => {
     jest.clearAllMocks();
   });
 
-  test('con usuario autenticado: limpia refreshTokenHash, borra cookie y devuelve 200', async () => {
+  test('test-b-u-20 - con usuario autenticado: limpia refreshTokenHash, borra cookie y devuelve 200', async () => {
     const req = { user: { id: 'u1' } };
     const res = mockRes();
 
@@ -314,7 +314,7 @@ describe('userController (unit) - logoutUser', () => {
     expect(res.json).toHaveBeenCalledWith({ message: 'Sesión cerrada' });
   });
 
-  test('sin usuario en req: no intenta tocar BD pero borra cookie y responde 200', async () => {
+  test('test-b-u-21 - sin usuario en req: no intenta tocar BD pero borra cookie y responde 200', async () => {
     const req = {}; // sin req.user
     const res = mockRes();
 

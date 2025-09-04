@@ -36,7 +36,7 @@ async function getLoginButton(page: Page) {
   throw new Error('No se encontró el botón de login');
 }
 
-test('login correcto navega al home', async ({ page }) => {
+test('test-f-e-01 - login correcto navega al home', async ({ page }) => {
   await page.goto('/login');
   await page.waitForLoadState('domcontentloaded');
   await page.getByLabel(/usuario|correo|email|user/i).fill('alice');
@@ -46,7 +46,7 @@ test('login correcto navega al home', async ({ page }) => {
   await expect(page).toHaveURL(/\/$/);
 });
 
-test('login incorrecto muestra error', async ({ page }) => {
+test('test-f-e-02 - login incorrecto muestra error', async ({ page }) => {
   await page.goto('/login');
   await page.waitForLoadState('domcontentloaded');
   await page.getByLabel(/usuario|correo|email|user/i).fill('bad');

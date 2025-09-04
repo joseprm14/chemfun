@@ -9,7 +9,7 @@ test.beforeEach(async ({ page }) => {
 });
 
 
-test('inicio rápido de partida', async ({ page }) => {
+test('test-f-e-04 - inicio rápido de partida', async ({ page }) => {
     await page.goto('/');
     await page.getByRole('button', { name: /iniciar partida/i }).click();
     await expect(page.getByRole('button', { name: /pausar/i })).toBeVisible();

@@ -21,7 +21,7 @@ describe('Users API (integration)', () => {
 
   const strongPass = 'Aa1!aaaa';
 
-  test('register -> 201, luego login -> 200 con token y cookie refresh', async () => {
+  test('test-b-i-05 - register -> 201, luego login -> 200 con token y cookie refresh', async () => {
     const reg = await request(app).post('/api/users/register').send({ username: 'alice', password: strongPass });
     expect(reg.statusCode).toBe(201);
 
@@ -33,14 +33,14 @@ describe('Users API (integration)', () => {
     expect(cookies.join(';')).toMatch(/refreshToken=/);
   });
 
-  test('login credenciales inválidas -> 401', async () => {
+  test('test-b-i-06 - login credenciales inválidas -> 401', async () => {
     await request(app).post('/api/users/register').send({ username: 'bob', password: strongPass });
     const res = await request(app).post('/api/users/login').send({ username: 'bob', password: 'Wrong1!' });
     expect(res.statusCode).toBe(401);
     expect(res.body).toEqual({ error: 'Credenciales inválidos' });
   });
 
-  test('me y update preferences', async () => {
+  test('test-b-i-07 - me y update preferences', async () => {
     await request(app).post('/api/users/register').send({ username: 'carol', password: strongPass });
     const login = await request(app).post('/api/users/login').send({ username: 'carol', password: strongPass });
     const token = login.body.token;
@@ -57,7 +57,7 @@ describe('Users API (integration)', () => {
     expect(upd.body).toEqual(expect.objectContaining({ locale: 'en', theme: 'dark' }));
   });
 
-  test('refresh-token rota refresh y devuelve nuevo access', async () => {
+  test('test-b-i-08 - refresh-token rota refresh y devuelve nuevo access', async () => {
     await request(app).post('/api/users/register').send({ username: 'dave', password: strongPass });
     const login = await request(app).post('/api/users/login').send({ username: 'dave', password: strongPass });
     const cookie = login.headers['set-cookie'].find(c => c.startsWith('refreshToken='));
@@ -67,7 +67,7 @@ describe('Users API (integration)', () => {
     expect(ref.body).toHaveProperty('token');
   });
 
-  test('logout borra refreshToken', async () => {
+  test('test-b-i-09 - logout borra refreshToken', async () => {
     await request(app).post('/api/users/register').send({ username: 'erin', password: strongPass });
     const login = await request(app).post('/api/users/login').send({ username: 'erin', password: strongPass });
     const token = login.body.token;

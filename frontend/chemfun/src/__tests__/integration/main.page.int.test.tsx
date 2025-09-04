@@ -11,7 +11,7 @@ jest.mock('@/src/lib/api', () => ({
 
 
 describe('MainPage (integration)', () => {
-    test('renderiza controles básicos', async () => {
+    test('test-f-i-02 - renderiza controles básicos', async () => {
         renderWithProviders(<MainPage />);
         const { getRankings } = require('@/src/lib/api');
         await waitFor(() => expect(getRankings).toHaveBeenCalled());
@@ -21,7 +21,7 @@ describe('MainPage (integration)', () => {
     });
 
 
-    test('permite iniciar y pausar', async () => {
+    test('test-f-i-03 - permite iniciar y pausar', async () => {
         renderWithProviders(<MainPage />);
         const { getRankings } = require('@/src/lib/api');
         await waitFor(() => expect(getRankings).toHaveBeenCalled());

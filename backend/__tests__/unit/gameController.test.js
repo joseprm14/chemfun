@@ -16,7 +16,7 @@ const mockRes = () => {
 describe('gameController (unit)', () => {
   beforeEach(() => jest.clearAllMocks());
 
-  test('saveGame crea sesión de juego', async () => {
+  test('test-b-u-05 - saveGame crea sesión de juego', async () => {
     const req = { user: { id: 'u1' }, body: { mode: 'click', difficulty: 'fácil', score: 10, timeTaken: 42 } };
     const res = mockRes();
     const session = { _id: 'g1', ...req.body, userId: 'u1' };
@@ -29,7 +29,7 @@ describe('gameController (unit)', () => {
     expect(res.json).toHaveBeenCalledWith(session);
   });
 
-  test('getUserGames devuelve partidas del usuario', async () => {
+  test('test-b-u-06 - getUserGames devuelve partidas del usuario', async () => {
     const req = { user: { id: 'u1' } };
     const res = mockRes();
     const sessions = [{ _id: 'g1' }, { _id: 'g2' }];

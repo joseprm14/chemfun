@@ -6,7 +6,7 @@ import { TableMask } from '@/src/lib/types';
 const mask: TableMask = { showName: false, showSymbol: true, showAtomicNumber: true };
 
 describe('PeriodicTable (unit)', () => {
-  test('renderiza algunas celdas y permite click handler', () => {
+  test('test-f-u-10 - renderiza algunas celdas y permite click handler', () => {
     const onCellClick = jest.fn();
     const onCellDrop = jest.fn();
     renderWithProviders(

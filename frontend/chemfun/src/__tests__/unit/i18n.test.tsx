@@ -10,13 +10,13 @@ function Title() {
 
 
 describe('i18n', () => {
-    test('traduce title', () => {
+    test('test-f-u-06 - traduce title', () => {
         renderWithProviders(<Title />);
         expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('ChemFun');
     });
 
 
-    test('cambia de idioma', () => {
+    test('test-f-u-07 - cambia de idioma', () => {
         function App() {
             const { setLocale } = useI18n();
             return (

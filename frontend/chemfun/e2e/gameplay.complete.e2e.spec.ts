@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 
 test.setTimeout(60_000);
 
-test('completa una partida corta en modo click', async ({ page }) => {
+test('test-f-e-03 - completa una partida corta en modo click', async ({ page }) => {
   await page.goto('/');
 
   // Cambiar a modo CLICK si hay toggles visibles

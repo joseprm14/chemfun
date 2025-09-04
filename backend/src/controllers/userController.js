@@ -70,7 +70,7 @@ exports.refreshToken = async (req, res) => {
         if (!user) return res.status(401).json({ error: 'Usuario no encontrado' });
 
         if (user.refreshTokenHash !== hashToken(token)) {
-        return res.status(401).json({ error: 'Refresh token inválido' });
+            return res.status(401).json({ error: 'Refresh token inválido' });
         }
 
         // Rotación del refresh token

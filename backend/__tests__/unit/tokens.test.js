@@ -12,7 +12,7 @@ describe('tokens utils', () => {
     process.env = OLD_ENV;
   });
 
-  test('sign/verify access token', () => {
+  test('test-b-u-08 - sign/verify access token', () => {
     const tok = signAccessToken(payload);
     const dec = verifyAccessToken(tok);
     expect(dec).toMatchObject(payload);
@@ -20,7 +20,7 @@ describe('tokens utils', () => {
     expect(dec).toHaveProperty('exp');
   });
 
-  test('sign/verify refresh token', () => {
+  test('test-b-u-09 - sign/verify refresh token', () => {
     const tok = signRefreshToken(payload);
     const dec = verifyRefreshToken(tok);
     expect(dec).toMatchObject(payload);
