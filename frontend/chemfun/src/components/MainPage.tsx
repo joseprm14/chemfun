@@ -29,7 +29,7 @@ export default function MainPage() {
   const [feedback, setFeedback] = useState<"ok"|"fail"|null>(null);
   const [guessed, setGuessed] = useState<Set<number>>(new Set());
   const [mistakes, setMistakes] = useState(0);
-  const [showMessage, setShowMessage] = useState(false);
+  const [showMessage, setShowMessage] = useState(true);
   const [locked, setLocked] = useState(false);
 
   // Construye máscara (qué mostrar en las casillas) según dificultad y modo
@@ -278,7 +278,7 @@ export default function MainPage() {
         className="fixed inset-0 z-50 grid place-items-center"
       >
         <div className="absolute inset-0 bg-black/50" onClick={resetGame} />
-        <div className="relative z-10 w-[min(90vw,720px)] max-h-[90vh] overflow-auto rounded-2xl bg-white p-6 shadow-xl">
+        <div className="relative z-10 w-[min(90vw,720px)] max-h-[90vh] overflow-auto rounded-2xl card p-6 shadow-xl">
           <h2 id="gameover-title" className="text-2xl font-bold mb-2">{t("youDidIt")}</h2>
           <ScoreBar score={score} time={time} />
           <p className="text-sm text-slate-600 mb-4">
@@ -287,7 +287,7 @@ export default function MainPage() {
 
           <div className="mt-6 flex justify-end gap-3">
             <button
-              className="px-4 py-2 rounded-md border hover:bg-slate-50"
+              className="px-4 py-2 rounded-md border btn-ghost"
               onClick={resetGame}
               autoFocus
             >
