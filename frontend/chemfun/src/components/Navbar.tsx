@@ -18,6 +18,10 @@ export default function Navbar(){
         (async ()=>{
             try {
                 const me = await getMe();
+                if (!me) {
+                    setAuth(null);
+                    return;
+                }
                 setAuth({ username: me.username });
             } catch {
                 setAuth(null);
