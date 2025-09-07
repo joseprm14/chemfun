@@ -100,12 +100,20 @@ export async function loginUser(payload: { username: string; password: string })
 }
 
 export async function logoutUser() {
+  if (!isLoggedIn) {
+    // Si no se ha iniciado sesión, no hay autorización
+    return null;
+  }
   await fetchWithAuth(`${BASE_URL}/users/logout`, { method: 'POST' });
   clearToken();
 }
 
 // Perfil
 export async function getMe() {
+  if (!isLoggedIn) {
+    // Si no se ha iniciado sesión, no hay autorización
+    return null;
+  }
   const res = await fetchWithAuth(`${BASE_URL}/users/me`, { method: 'GET' });
   if (!res.ok) {
     const msg = await safeMsg(res);
@@ -115,6 +123,10 @@ export async function getMe() {
 }
 
 export async function updatePreferences(payload: Partial<{ locale: 'es'|'en'; theme: 'light'|'dark' }>) {
+  if (!isLoggedIn) {
+    // Si no se ha iniciado sesión, no hay autorización
+    return null;
+  }
   const res = await fetchWithAuth(`${BASE_URL}/users/me/preferences`, {
     method: 'PATCH',
     body: JSON.stringify(payload),
@@ -128,6 +140,10 @@ export async function updatePreferences(payload: Partial<{ locale: 'es'|'en'; th
 
 // Juego
 export async function saveGameSession(payload: { mode: "click" | "drag"; difficulty: "fácil" | "medio" | "difícil"; score: number; timeTaken: number; }) {
+  if (!isLoggedIn) {
+    // Si no se ha iniciado sesión, no hay autorización
+    return null;
+  }
   const res = await fetchWithAuth(`${BASE_URL}/game/save`, {
     method: 'POST',
     body: JSON.stringify(payload),

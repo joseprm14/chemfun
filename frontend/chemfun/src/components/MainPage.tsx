@@ -102,7 +102,7 @@ export default function MainPage() {
         });
       }
     } catch (e) {
-      // silencioso ok para demo
+      console.log(e)
     }
   };
 
