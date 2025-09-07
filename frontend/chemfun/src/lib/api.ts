@@ -100,7 +100,7 @@ export async function loginUser(payload: { username: string; password: string })
 }
 
 export async function logoutUser() {
-  if (!isLoggedIn) {
+  if (!isLoggedIn()) {
     // Si no se ha iniciado sesión, no hay autorización
     return null;
   }
@@ -110,7 +110,7 @@ export async function logoutUser() {
 
 // Perfil
 export async function getMe() {
-  if (!isLoggedIn) {
+  if (!isLoggedIn()) {
     // Si no se ha iniciado sesión, no hay autorización
     return null;
   }
@@ -123,7 +123,7 @@ export async function getMe() {
 }
 
 export async function updatePreferences(payload: Partial<{ locale: 'es'|'en'; theme: 'light'|'dark' }>) {
-  if (!isLoggedIn) {
+  if (!isLoggedIn()) {
     // Si no se ha iniciado sesión, no hay autorización
     return null;
   }
@@ -140,7 +140,7 @@ export async function updatePreferences(payload: Partial<{ locale: 'es'|'en'; th
 
 // Juego
 export async function saveGameSession(payload: { mode: "click" | "drag"; difficulty: "fácil" | "medio" | "difícil"; score: number; timeTaken: number; }) {
-  if (!isLoggedIn) {
+  if (!isLoggedIn()) {
     // Si no se ha iniciado sesión, no hay autorización
     return null;
   }
