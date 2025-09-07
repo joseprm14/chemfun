@@ -29,7 +29,7 @@ export default function MainPage() {
   const [feedback, setFeedback] = useState<"ok"|"fail"|null>(null);
   const [guessed, setGuessed] = useState<Set<number>>(new Set());
   const [mistakes, setMistakes] = useState(0);
-  const [showMessage, setShowMessage] = useState(true);
+  const [showMessage, setShowMessage] = useState(false);
   const [locked, setLocked] = useState(false);
 
   // Construye máscara (qué mostrar en las casillas) según dificultad y modo
