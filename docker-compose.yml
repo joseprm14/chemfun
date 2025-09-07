@@ -1,0 +1,54 @@
+version: "3.9"
+
+name: chemfun
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: chemfun-backend
+    env_file:
+      - ./backend/.env          
+    environment:
+      NODE_ENV: production
+      # Asegura CORS para el front en docker y localhost
+      ALLOWED_ORIGINS: "http://localhost:3000,http://127.0.0.1:3000,http://frontend:3000"
+      PORT: "5000"
+    ports:
+      - "5000:5000"
+    networks:
+      - chemfun-net
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://localhost:5000').catch(()=>process.exit(1))"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  frontend:
+    build:
+      context: ./frontend/chemfun
+      dockerfile: Dockerfile
+    container_name: chemfun-frontend
+    environment:
+      # El front habla al backend por la red interna de docker:
+      NEXT_PUBLIC_API_BASE: "http://backend:5000/api"
+      NODE_ENV: production
+    ports:
+      - "3000:3000"
+    depends_on:
+      backend:
+        condition: service_started
+    networks:
+      - chemfun-net
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://localhost:3000').catch(()=>process.exit(1))"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+networks:
+  chemfun-net:
+
+volumes:
+  mongo-data:
