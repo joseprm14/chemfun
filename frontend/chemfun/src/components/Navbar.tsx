@@ -8,6 +8,7 @@ import { useTheme } from "../lib/theme";
 
 
 export default function Navbar(){
+    // Barra de navegación de la página
     const { locale, setLocale, t } = useI18n();
     const { theme, toggle } = useTheme();
     const [auth, setAuth] = useState<null | { username: string }>(null);

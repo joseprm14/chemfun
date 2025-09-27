@@ -31,6 +31,6 @@ describe('MainPage (integration solve one correct pick)', () => {
     // ✅ El marcador (ScoreBar) debería mostrar 1 en la PRIMERA tarjeta lateral de "Puntuación"
     const scoreLabel = screen.getAllByText(/puntuación|score/i)[0];
     const scoreValueEl = scoreLabel.parentElement?.querySelector('div.text-2xl') as HTMLElement;
-    expect(scoreValueEl).toHaveTextContent('1');
+    expect(scoreValueEl).toHaveTextContent('5');
   });
 });

@@ -1,8 +1,7 @@
 const express = require('express');
 const { getGlobalRanking } = require('../controllers/rankingController');
 
-// TODO middleware especifico para validar parametros de rutas?
-
+// Ruta para la función de rankingController
 const router = express.Router();
 router.get('/:mode/:difficulty', getGlobalRanking);
 

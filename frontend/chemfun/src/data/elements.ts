@@ -1,5 +1,6 @@
 import { ElementData } from "../lib/types";
 
+// Listado de los 118 elementos de la tabla periódica con su información relevante
 export const elements: ElementData[] = [
   { atomicNumber: 1, symbol: "H", name: "Hidrógeno",nameEN: "Hydrogen", group: 1, period: 1, category: "nonmetal" },
   { atomicNumber: 2, symbol: "He", name: "Helio",nameEN: "Helium", group: 18, period: 1, category: "noble" },

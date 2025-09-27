@@ -10,6 +10,8 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
+  // El layout general de la aplicación es sencillo, la barra de navegación en lo alto seguida por el contenido general de cada página
+  // Además aquí se aplican los proveedores de tema y de idioma
   return (
     <html lang="es">
       <body>

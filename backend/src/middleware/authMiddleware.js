@@ -1,6 +1,7 @@
 const { verifyAccessToken } = require('../utils/tokens');
 
 module.exports = (req, res, next) => {
+  // Este middleware comprueba que se incluye un token de autenticación válido a la hora de realizar una petición
   const auth = req.headers.authorization || '';
   const token = auth.startsWith('Bearer ') ? auth.slice(7) : null;
 

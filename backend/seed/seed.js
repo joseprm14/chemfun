@@ -10,6 +10,7 @@ const GameSession = require("../src/models/GameSession");
 
 const saltRounds = parseInt(process.env.BCRYPT_SALT_ROUNDS || '10', 10);
 
+// Usuarios de ejemplo
 const USERS = [
   { username: 'ana',   password: 'Ana!2024',   locale: 'es', theme: 'light' },
   { username: 'bruce', password: 'Bruc3!2024', locale: 'en', theme: 'dark'   },
@@ -48,12 +49,14 @@ const SAMPLE_SESSIONS = [
 ];
 
 async function connect() {
+  // Conexión a la base de datos
   const uri = process.env.MONGO_URI;
   await mongoose.connect(uri);
   console.log('✅ Conectado a MongoDB');
 }
 
 async function clear() {
+  // Limpia las colecciones existentes de la base de datos
   await Promise.allSettled([
     User.deleteMany({}),
     GameSession.deleteMany({})
@@ -62,6 +65,7 @@ async function clear() {
 }
 
 function validatePasswordComplexity(pwd) {
+  // Se comprueba que la contraseña cumple las condiciones de complejidad
   const ok =
     typeof pwd === 'string' &&
     pwd.length >= 8 &&
@@ -73,6 +77,7 @@ function validatePasswordComplexity(pwd) {
 }
 
 async function seedUsers() {
+  // Añade los usuarios de ejemplos a la base de datos
   const docs = [];
   for (const u of USERS) {
     validatePasswordComplexity(u.password);
@@ -92,6 +97,7 @@ async function seedUsers() {
 }
 
 async function seedSessions(userMap) {
+  // Añade las sesiones de juego de ejemplo a la base de datos
   const rows = [];
   for (const s of SAMPLE_SESSIONS) {
     const userId = userMap.get(s.u);

@@ -4,6 +4,8 @@ import { useI18n } from "../lib/i18n";
 
 
 export function ModeSelectors({ mode, setMode, difficulty, setDifficulty }: { mode: GameMode; setMode?: (m: GameMode) => void; difficulty: Difficulty; setDifficulty?: (d: Difficulty) => void; }) {
+  // Componente con los selectores de los parámetros del juego
+  // Permite escoger la dificultad, asi como la modalidad
   const { t } = useI18n();
   return (
     <div>

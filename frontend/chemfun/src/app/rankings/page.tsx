@@ -6,6 +6,7 @@ import { useI18n } from "@/src/lib/i18n";
 import { Difficulty, GameMode } from "../../lib/types";
 
 export default function RankingsPage() {
+  // Página de rankings de usuarios
   const { t } = useI18n();
   const [mode, setMode] = useState<GameMode>("click");
   const [difficulty, setDifficulty] = useState<Difficulty>("fácil");
@@ -16,6 +17,7 @@ export default function RankingsPage() {
   const fetchData = async () => {
     setLoading(true); setError(null);
     try {
+      // Petición a la API para obtener los rankings
       const res = await getRankings({ mode, difficulty });
       setData(res);
     } catch (e: any) {

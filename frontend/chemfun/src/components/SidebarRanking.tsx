@@ -10,6 +10,7 @@ export default function SidebarRanking({
   difficulty,
   limit = 5
 }: { mode: GameMode; difficulty: Difficulty; limit?: number }) {
+  // Este componente muestra un pequeño ranking en la página principal de la aplicación
   const { t } = useI18n();
   const [rows, setRows] = useState<Array<{username:string; score:number; timeTaken:number}>>([]);
   const [loading, setLoading] = useState(true);

@@ -4,6 +4,8 @@ const mongoose = require('mongoose');
 
 let mongod;
 
+// Colección de funciones utilizadas para los test de la aplicación que requieren conectarse a la base de datos
+// Crean una base de datos de Mongo en memoria
 
 async function startInMemoryMongo() {
     mongod = await MongoMemoryServer.create();

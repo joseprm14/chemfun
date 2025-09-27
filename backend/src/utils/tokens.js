@@ -5,6 +5,8 @@ const REFRESH_SECRET = process.env.JWT_REFRESH_SECRET || 'secretrefreshtoken';
 const ACCESS_TTL   = process.env.JWT_ACCESS_TTL || '15m';
 const REFRESH_TTL  = process.env.JWT_REFRESH_TTL || '7d';
 
+// Colección de funciones para el manejo de los tokens JWT de autenticación y de refresco
+
 const signAccessToken = (payload) =>
   jwt.sign(payload, ACCESS_SECRET, { expiresIn: ACCESS_TTL });
 

@@ -25,6 +25,8 @@ export function PeriodicTable({
   highlightAtomicNumber,
   guessed
 }: Props) {
+  // Componente que genera el tablero de juego de la tabla periódica
+
   const { t } = useI18n();
 
   // Mapa rápido por (period,group) -> elemento
@@ -53,24 +55,32 @@ export function PeriodicTable({
   }
 
   function cellContent(atomicNumber?: number) {
+    // Esta función decide que información se muestra para cada celda
     if (!atomicNumber) return null;
     const e = byAtomic.get(atomicNumber)!;
     return (
       <>
-        {(mask.showAtomicNumber || guessed.has(atomicNumber)) && (
+        {(mask.showAtomicNumber || guessed.has(atomicNumber)) ? (
           <div className="text-[10px] opacity-70">{e.atomicNumber}</div>
+        ) : (
+          <div className="text-[10px] text-transparent opacity-70">-</div>
         )}
-        {(mask.showSymbol || guessed.has(atomicNumber)) && (
-          <div className="text-sm font-bold leading-none">{e.symbol}</div>
+        {(mask.showSymbol || guessed.has(atomicNumber)) ? (
+          <div className="text-[clamp(11px,1.8vw,14px)] font-bold leading-none">{e.symbol}</div>
+        ) : (
+          <div className="text-[clamp(11px,1.8vw,14px)] text-transparent leading-none">-</div>
         )}
-        {(mask.showName || guessed.has(atomicNumber)) && (
+        {(mask.showName || guessed.has(atomicNumber)) ? (
           <div className="text-[10px] truncate">{t("element")==="nameEN" ? e.nameEN : e.name}</div>
+        ) : (
+          <div className="text-[10px] text-transparent truncate">-</div>
         )}
       </>
     );
   }
 
   function cellClass(atomicNumber?: number) {
+    // Función que obtiene el color de fondo de cada celda
     if (!atomicNumber) return "bg-transparent";
     const e = byAtomic.get(atomicNumber)!;
     return categoryBg(e.category);
@@ -79,7 +89,7 @@ export function PeriodicTable({
   return (
     <div className="w-full overflow-x-auto">
       {/* Tabla principal */}
-      <div className="inline-grid [grid-template-columns:repeat(18,3.5rem)] gap-1 p-2">
+      <div className="grid w-full max-w-[min(95vw,1200px)] [grid-template-columns:repeat(18,minmax(0,1fr))] gap-1 p-2">
         {rows.map(period => (
           groups.map(group => {
             const atomicNumber = byCoord.get(`${period}:${group}`);
@@ -92,7 +102,7 @@ export function PeriodicTable({
                 data-symbol={atomicNumber ? byAtomic.get(atomicNumber)?.symbol : null}
                 whileHover={{ scale: isEmpty ? 1 : 1.05 }}
                 className={classNames(
-                  "relative h-12 w-14 rounded-md border text-center flex flex-col items-center justify-center select-none transition-transform",
+                  "relative w-full aspect-[5/4] min-w-0 rounded-md border text-center flex flex-col items-center justify-center select-none transition-transform p-1",
                   isEmpty ? "invisible" : (guessed.has(atomicNumber!) ? "border-2 border-black" : "border-slate-200"),
                   !isEmpty && cellClass(atomicNumber),
                   !isEmpty && "hover:shadow-md"
@@ -118,7 +128,7 @@ export function PeriodicTable({
       <div className="h-4" />
 
       {/* Lantánidos */}
-      <div className="inline-grid [grid-template-columns:repeat(18,3.5rem)] gap-1 p-2">
+      <div className="grid w-full max-w-[min(95vw,1200px)] [grid-template-columns:repeat(18,minmax(0,1fr))] gap-1 p-2">
         <div className="col-span-3" />
         {elements.filter(e => e.category === "lanthanoid" && e.name !== "Lantano").map(e => (
           <motion.div
@@ -127,7 +137,7 @@ export function PeriodicTable({
             data-symbol={e.symbol}
             whileHover={{ scale: 1.05 }}
             className={classNames(
-              "relative h-12 w-14 rounded-md border text-center flex flex-col items-center justify-center select-none transition-transform",
+              "relative w-full aspect-[5/4] min-w-0 rounded-md border text-center flex flex-col items-center justify-center select-none transition-transform",
               cellClass(e.atomicNumber),
               "hover:shadow-md",
               (guessed.has(e.atomicNumber!) ? "border-2 border-black" : "border-slate-200")
@@ -142,7 +152,7 @@ export function PeriodicTable({
       </div>
 
       {/* Actínidos */}
-      <div className="inline-grid [grid-template-columns:repeat(18,3.5rem)] gap-1 p-2">
+      <div className="grid w-full max-w-[min(95vw,1200px)] [grid-template-columns:repeat(18,minmax(0,1fr))] gap-1 p-2">
         <div className="col-span-3" />
         {elements.filter(e => (e.category === "actinoid" && e.name !== "Actinio")).map(e => (
           <motion.div
@@ -152,7 +162,7 @@ export function PeriodicTable({
             data-symbol={e.symbol}
             whileHover={{ scale: 1.05 }}
             className={classNames(
-              "relative h-12 w-14 rounded-md border text-center flex flex-col items-center justify-center select-none transition-transform",
+              "relative w-full aspect-[5/4] min-w-0 rounded-md border text-center flex flex-col items-center justify-center select-none transition-transform",
               cellClass(e.atomicNumber),
               "hover:shadow-md",
               (guessed.has(e.atomicNumber!) ? "border-2 border-black" : "border-slate-200")

@@ -8,7 +8,7 @@ type Locale = "es" | "en";
 
 type Dict = Record<string, { es: string; en: string }>
 
-
+// Diccionario que contiene para cada texto de la aplicación una versión en español y otra en inglés
 const dict: Dict = {
     title: { es: "🧪 ChemFun", en: "🧪 ChemFun" },
     start: { es: "Iniciar partida", en: "Start game" },

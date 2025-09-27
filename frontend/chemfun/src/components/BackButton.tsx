@@ -3,6 +3,7 @@ import { useRouter } from "next/navigation";
 import { useI18n } from "../lib/i18n";
 
 export default function BackButton({ label = "Volver" }: { label?: string }) {
+  // Este componente genera un botón de regreso a la página anterior
   const { t } = useI18n();
   const router = useRouter();
   label = t("back");

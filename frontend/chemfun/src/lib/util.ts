@@ -1,12 +1,13 @@
 import { useTheme } from "../lib/theme";
 
-// Definimos varias funciones que proporcionaran diversas funcionalidades a lo largo del codigo
+// Colección de funciones utiles que se utilizan a lo largo del codigo
 
 export function classNames(...cls: (string | false | null | undefined)[]) {
   return cls.filter(Boolean).join(" ");
 }
 
 export function pickRandom<T>(arr: T[]): T {
+  // Elige un elemento aleatorio de un array
   return arr[Math.floor(Math.random() * arr.length)];
 }
 

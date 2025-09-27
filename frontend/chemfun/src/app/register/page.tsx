@@ -6,12 +6,13 @@ import BackButton from "@/src/components/BackButton";
 import Link from "next/link";
 import { useI18n } from "@/src/lib/i18n";
 
-// Condicion para las contraseñas
+// Condición para las contraseñas
 const strongEnough = (pwd: string) =>
   /[a-z]/.test(pwd) && /[A-Z]/.test(pwd) && /\d/.test(pwd) && /[^A-Za-z0-9]/.test(pwd) && pwd.length >= 8;
 
 
 export default function RegisterPage() {
+  // Página de registro de usuarios
   const { t, locale, setLocale } = useI18n();
   const [username, setU] = useState("");
   const [password, setP] = useState("");
@@ -22,12 +23,15 @@ export default function RegisterPage() {
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!strongEnough(password)) {
+      // Si la contraseña no cumple las condiciones adecuadas, se produce error
+      // En realidad esto también se comprueba en el backend
       setError("La contraseña debe tener 8+ caracteres, mayúscula, minúscula, número y carácter especial.");
       return;
     }
     setLoading(true);
     setError(null);
     try {
+      // Se realiza una petición a la API para registrar el nuevo usuario, y si va bien se inicia sesión
       await registerUser({ username, password });
       await loginUser({ username, password });
       router.replace("/");

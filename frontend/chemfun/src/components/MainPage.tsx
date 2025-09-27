@@ -16,6 +16,7 @@ import SidebarRanking from "@/src/components/SidebarRanking";
 
 
 export default function MainPage() {
+  // Componente de la página principal de la aplicación
   const { t } = useI18n();
   const [mode, setMode] = useState<GameMode>("click");
   const [difficulty, setDifficulty] = useState<Difficulty>("fácil");
@@ -52,6 +53,7 @@ export default function MainPage() {
   }, [guessed]);
 
   const handleSkip = () => {
+    // Salta a otro elemento
     setTarget(pickNextTarget(target?.atomicNumber));
   }
 
@@ -90,7 +92,7 @@ export default function MainPage() {
 
   const stopGame = async () => {
     timerRef.current && clearInterval(timerRef.current);
-    // Guardar sesión en tu backend (ajusta URL y auth según tu app)
+    // Guardar sesión en el backend
     setShowMessage(true);
     try {
       if (isLoggedIn()) {
@@ -107,6 +109,7 @@ export default function MainPage() {
   };
 
   const resetGame = () => {
+    // Reincia las variables del juego
     setStarted(false);
     setLocked(false);
     setPaused(false);
@@ -120,6 +123,7 @@ export default function MainPage() {
 
   useEffect(() => {
     if (remaining.length === 0 && started) {
+      // Si no quedan elementos por colocar se para el juego
       stopGame();
     }
   }, [remaining]);
@@ -130,7 +134,7 @@ export default function MainPage() {
     const correct = elements.find(e => e.atomicNumber === atomicNumber)?.name === target.name;
     if (correct) {
       setGuessed(prev => new Set(prev).add(atomicNumber));
-      setScore((s) => s + 1);
+      setScore((s) => s + 5);
       setFeedback("ok");
       // nuevo objetivo si quedan elementos
       if (remaining.length !== 0) {
@@ -150,7 +154,7 @@ export default function MainPage() {
     const correct = atomicNumber === droppedAtomicNumber;
     if (correct) {
       setGuessed(prev => new Set(prev).add(atomicNumber));
-      setScore((s) => s + 1);
+      setScore((s) => s + 5);
       setFeedback("ok");
     } else {
       setFeedback("fail");

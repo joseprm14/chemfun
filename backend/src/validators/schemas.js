@@ -1,5 +1,8 @@
 const Joi = require('joi');
 
+// Colección de esquemas que se utilizan con el middleware de validación para validar las entredas de las peticiones recibidas
+
+// Esquema de complejidad de la contraseña
 const passwordComplexity = Joi.string()
   .min(8)
   .max(72) // por bcrypt
@@ -13,6 +16,7 @@ const passwordComplexity = Joi.string()
     'string.max': 'La contraseña no debe superar {#limit} caracteres.'
   });
 
+// Esquema de validación de registro
 const registerSchema = Joi.object({
   username: Joi.string().min(3).max(30).required(),
   password: passwordComplexity.required(),
@@ -20,11 +24,13 @@ const registerSchema = Joi.object({
   theme:    Joi.string().valid('light', 'dark').default('light')
 });
 
+// Esquema de validación de inicio de sesión
 const loginSchema = Joi.object({
   username: Joi.string().required(),
   password: Joi.string().required()
 });
 
+// Esquema de validación de sesiones de juego
 const gameSessionSchema = Joi.object({
   mode: Joi.string().valid('click', 'drag').required(), 
   difficulty: Joi.string().valid('fácil', 'medio', 'difícil').required(), 
@@ -32,6 +38,7 @@ const gameSessionSchema = Joi.object({
   timeTaken: Joi.number().min(0).required()
 });
 
+// Esquema de validación de preferencias de la página
 const preferencesSchema = Joi.object({
   locale: Joi.string().valid('es', 'en'),
   theme:  Joi.string().valid('light', 'dark', 'system')

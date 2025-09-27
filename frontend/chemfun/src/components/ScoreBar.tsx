@@ -2,6 +2,7 @@
 import { useI18n } from "../lib/i18n";
 
 export function ScoreBar({ score, time }: { score: number; time: number }) {
+  // Componente para mostrar la puntuación y el tiempo transcurrido de la partida
   const { t } = useI18n();
   const mm = Math.floor(time / 60).toString().padStart(2, "0");
   const ss = (time % 60).toString().padStart(2, "0");

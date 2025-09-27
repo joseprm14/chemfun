@@ -5,11 +5,14 @@ import { useRouter } from "next/navigation";
 import BackButton from "@/src/components/BackButton";
 import Link from "next/link";
 import { useI18n } from "@/src/lib/i18n";
+import { useTheme } from "@/src/lib/theme";
 
 export default function LoginPage() {
+  // Página de inicio de sesión de la aplicación
   const { t, setLocale } = useI18n();
   const [username, setU] = useState("");
   const [password, setP] = useState("");
+  const { theme } = useTheme();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
@@ -19,14 +22,16 @@ export default function LoginPage() {
     setLoading(true);
     setError(null);
     try {
+      // Petición a la API para el inicio de sesión
       const { user } = await loginUser({ username, password });
       // Aplicar preferencias del usuario
       if (user?.locale) setLocale(user.locale as any);
-      if (user?.theme === 'dark') {
-        // forzar modo oscuro si te interesa directamente aquí
+      if (user?.theme === 'dark' && theme === "light") {
+        // forzar modo oscuro
         document.documentElement.classList.add('dark');
         localStorage.setItem("theme", "dark");
-      } else if (user?.theme === 'light') {
+      } else if (user?.theme === 'light' && theme === "dark") {
+        // Forzar modo claro
         document.documentElement.classList.remove('dark');
         localStorage.setItem("theme", "light");
       }
